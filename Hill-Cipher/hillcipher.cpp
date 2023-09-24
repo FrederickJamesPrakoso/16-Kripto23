@@ -5,7 +5,7 @@
 
 const int MATRIX_SIZE = 3;
 
-bool getMatrixInverse(const std::vector<std::vector<int>>& matrix, std::vector<std::vector<int>>& inverse) {
+bool getKeyMatrixInverse(const std::vector<std::vector<int>>& matrix, std::vector<std::vector<int>>& inverse) {
     int det = (matrix[0][0] * matrix[1][1] * matrix[2][2] +
                matrix[0][1] * matrix[1][2] * matrix[2][0] +
                matrix[0][2] * matrix[1][0] * matrix[2][1]) -
@@ -86,7 +86,7 @@ std::string decrypt(const std::string& ciphertext, const std::vector<std::vector
     int len = ciphertext.length();
 
     std::vector<std::vector<int>> inverseMatrix;
-    if (!getMatrixInverse(keyMatrix, inverseMatrix))
+    if (!getKeyMatrixInverse(keyMatrix, inverseMatrix))
         return "";
 
     for (int i = 0; i < len; i += MATRIX_SIZE) {
@@ -152,7 +152,7 @@ int main() {
 
             case 3: {
                 std::vector<std::vector<int>> inverseMatrix;
-                if (getMatrixInverse(keyMatrix, inverseMatrix)) {
+                if (getKeyMatrixInverse(keyMatrix, inverseMatrix)) {
                     std::cout << "Inverse Key Matrix:" << std::endl;
                     for (int i = 0; i < MATRIX_SIZE; ++i) {
                         for (int j = 0; j < MATRIX_SIZE; ++j) {
